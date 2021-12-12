@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX GET 请求</title>
+    <style>
+        #recom{
+            height: 1500px;
+            width: 1500px;
+            border: 1px solid #39b;
+        }
+    </style>
+</head>
+<body>
+     <button>推荐歌单</button>
+     <div id='recom'></div>
+    <script>
+        const btn = document.getElementsByTagName('button')[0];
+        const rem = document.getElementById("recom");
+        // 绑定事件
+        btn.onclick = function(){
+            // 1.创建对象
+            const xhr = new XMLHttpRequest();
+            // 2.初始化 设置请求方法和url
+            xhr.open('GET', 'http://cloud-music.pl-fe.cn/personalized?limit=30');
+            // 3.发送
+            xhr.send();
+            // 4.事件绑定 处理服务端返回的结果
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    if(xhr.status >= 200 && xhr.status < 300){
+                    rem.innerHTML = xhr.response;
+                    }
+                }
+            }
+            
+        }
+    </script>
+</body>
+</html>                        
